@@ -64,9 +64,9 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
             key={mode.id}
             onClick={() => setActiveMode(mode.id)}
             className={cn(
-              "study-btn py-6 px-6 flex items-center gap-2 border-none transition-all duration-300",
-              isActive ? [mode.activeColor, "ring-2 ring-primary shadow-md"] : [mode.bgColor, mode.hoverColor],
-              isActive ? mode.textColor : "text-muted-foreground",
+              "py-4 px-6 rounded-2xl flex items-center gap-2 border-none transition-all duration-300 shadow-sm",
+              isActive ? mode.activeColor : mode.bgColor,
+              isActive ? mode.textColor : "text-gray-600",
               "hover:scale-105 active:scale-95"
             )}
             variant="ghost"
