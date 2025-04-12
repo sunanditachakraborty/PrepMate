@@ -31,7 +31,7 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
           <div className="space-y-5">
             {summaryPoints.length > 0 && (
               <div className="pb-2 text-gray-600 font-medium border-b border-gray-100">
-                Summary of Electric Flux Calculation
+                Summary of Key Concepts
               </div>
             )}
             {summaryPoints.map((point, index) => (

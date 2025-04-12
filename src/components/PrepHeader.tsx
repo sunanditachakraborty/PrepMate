@@ -1,5 +1,5 @@
 
-import { BookOpen, GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap, Zap } from "lucide-react";
 
 export const PrepHeader = () => {
   return (
@@ -13,10 +13,16 @@ export const PrepHeader = () => {
           <BookOpen className="h-6 w-6 text-blue-500 transition-all duration-300" />
         </div>
       </div>
-      <p className="text-muted-foreground mt-2 flex items-center gap-1">
-        Upload. Learn. Repeat.
-        <span className="text-green-500 ml-1">✓</span>
-      </p>
+      <div className="flex items-center gap-2 mt-2">
+        <p className="text-muted-foreground flex items-center gap-1">
+          Upload. Learn. Repeat.
+          <span className="text-green-500 ml-1">✓</span>
+        </p>
+        <div className="flex items-center text-xs text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">
+          <Zap className="h-3 w-3 mr-1" />
+          Lyzr Powered
+        </div>
+      </div>
     </header>
   );
 };

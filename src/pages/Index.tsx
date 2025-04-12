@@ -16,6 +16,7 @@ const Index = () => {
   const [studyContent, setStudyContent] = useState("");
   const [activeMode, setActiveMode] = useState<StudyMode>("summary");
   const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
   
   // Study materials state
   const [summaryPoints, setSummaryPoints] = useState<string[]>([]);
@@ -37,11 +38,12 @@ const Index = () => {
     }
 
     setIsLoading(true);
+    setApiError(null);
     
     try {
-      toast.info("Generating study materials...");
+      toast.info("Connecting to Lyzr API to generate study materials...");
 
-      // Process the study content
+      // Process the study content using the Lyzr API
       const processedContent = await processStudyContent(studyContent);
       
       // Update the state with the processed content
@@ -53,6 +55,7 @@ const Index = () => {
       toast.success("Study materials generated successfully!");
     } catch (error) {
       console.error("Error generating study materials:", error);
+      setApiError("Failed to connect to Lyzr API. Please try again later.");
       toast.error("Failed to generate study materials. Please try again.");
     } finally {
       setIsLoading(false);
@@ -61,6 +64,17 @@ const Index = () => {
 
   // Render the active output component based on mode
   const renderActiveOutput = () => {
+    // Display API error if one occurred
+    if (apiError && !isLoading) {
+      return (
+        <div className="p-6 bg-red-50 border border-red-200 rounded-xl animate-fade-in">
+          <h3 className="text-red-700 font-medium mb-2">Connection Error</h3>
+          <p className="text-red-600">{apiError}</p>
+          <p className="text-red-500 mt-4 text-sm">Using fallback content instead. Please try again later.</p>
+        </div>
+      );
+    }
+
     switch (activeMode) {
       case "summary":
         return <SummaryOutput summaryPoints={summaryPoints} isLoading={isLoading} />;
