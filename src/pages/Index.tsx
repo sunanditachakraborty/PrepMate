@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { PrepHeader } from "@/components/PrepHeader";
 import { StudyModeButtons } from "@/components/StudyModeButtons";
@@ -90,7 +89,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f8f5ff]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <PrepHeader />
         

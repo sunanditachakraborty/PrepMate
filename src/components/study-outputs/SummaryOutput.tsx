@@ -14,7 +14,7 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
         <div className="bg-green-50 p-1.5 rounded-full mr-2">
           <ListChecks className="h-5 w-5 text-green-700" />
         </div>
-        <CardTitle className="text-lg text-gray-700">Key Points</CardTitle>
+        <CardTitle className="text-lg text-gray-700">Content Summary</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
@@ -31,7 +31,7 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
           <div className="space-y-5">
             {summaryPoints.length > 0 && (
               <div className="pb-2 text-gray-600 font-medium border-b border-gray-100">
-                Summary of Key Concepts
+                Key Concepts from Your Content
               </div>
             )}
             {summaryPoints.map((point, index) => (
@@ -40,7 +40,7 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
                 className="flex items-start gap-2 animate-slide-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <span className="text-gray-500">-</span>
+                <span className="text-green-500 font-bold">•</span>
                 <span className="text-gray-700">{point}</span>
               </div>
             ))}

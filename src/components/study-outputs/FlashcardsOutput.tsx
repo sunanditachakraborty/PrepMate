@@ -14,6 +14,26 @@ interface FlashcardsOutputProps {
   isLoading: boolean;
 }
 
+// Array of pastel background colors for cards
+const cardColors = [
+  "bg-blue-50",
+  "bg-green-50",
+  "bg-pink-50",
+  "bg-purple-50",
+  "bg-yellow-50",
+  "bg-orange-50",
+];
+
+// Array of flipped card colors
+const flippedColors = [
+  "bg-blue-100",
+  "bg-green-100",
+  "bg-pink-100",
+  "bg-purple-100",
+  "bg-yellow-100",
+  "bg-orange-100",
+];
+
 export const FlashcardsOutput = ({ flashcards, isLoading }: FlashcardsOutputProps) => {
   const [flippedCards, setFlippedCards] = useState<boolean[]>([]);
 
@@ -40,66 +60,71 @@ export const FlashcardsOutput = ({ flashcards, isLoading }: FlashcardsOutputProp
           </div>
         ) : flashcards.length > 0 ? (
           <div className="grid grid-cols-1 gap-4">
-            {flashcards.map((card, index) => (
-              <div 
-                key={index}
-                className={`relative h-full min-h-[140px] cursor-pointer transition-all duration-500 animate-slide-in ${
-                  flippedCards[index] ? "bg-blue-50" : "bg-white"
-                }`}
-                style={{ 
-                  animationDelay: `${index * 150}ms`,
-                  transformStyle: "preserve-3d" 
-                }}
-                onClick={() => toggleFlip(index)}
-              >
-                <div
-                  className={`absolute inset-0 flex flex-col justify-between p-4 border rounded-lg shadow-sm transition-all duration-500 ${
-                    flippedCards[index] ? "opacity-0 rotate-y-180" : "opacity-100"
+            {flashcards.map((card, index) => {
+              const cardColor = cardColors[index % cardColors.length];
+              const flippedColor = flippedColors[index % flippedColors.length];
+              
+              return (
+                <div 
+                  key={index}
+                  className={`relative h-full min-h-[140px] cursor-pointer transition-all duration-500 animate-slide-in ${
+                    flippedCards[index] ? flippedColor : cardColor
                   }`}
+                  style={{ 
+                    animationDelay: `${index * 150}ms`,
+                    transformStyle: "preserve-3d" 
+                  }}
+                  onClick={() => toggleFlip(index)}
                 >
-                  <div>
-                    <h3 className="font-medium text-gray-800">{card.front}</h3>
+                  <div
+                    className={`absolute inset-0 flex flex-col justify-between p-4 border rounded-lg shadow-sm transition-all duration-500 ${cardColor} ${
+                      flippedCards[index] ? "opacity-0 rotate-y-180" : "opacity-100"
+                    }`}
+                  >
+                    <div>
+                      <h3 className="font-medium text-gray-800">{card.front}</h3>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        variant="outline" 
+                        size="sm"
+                        className="text-xs mt-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFlip(index);
+                        }}
+                      >
+                        Show Answer
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex justify-end">
-                    <Button
-                      variant="outline" 
-                      size="sm"
-                      className="text-xs mt-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFlip(index);
-                      }}
-                    >
-                      Show Answer
-                    </Button>
-                  </div>
-                </div>
 
-                <div
-                  className={`absolute inset-0 flex flex-col justify-between p-4 border rounded-lg bg-blue-50 shadow-sm transition-all duration-500 ${
-                    flippedCards[index] ? "opacity-100" : "opacity-0 rotate-y-180"
-                  }`}
-                >
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">Answer:</p>
-                    <p className="text-gray-800">{card.back}</p>
-                  </div>
-                  <div className="flex justify-end">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs mt-2 text-blue-600 hover:text-blue-700 hover:bg-blue-100"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFlip(index);
-                      }}
-                    >
-                      Show Question
-                    </Button>
+                  <div
+                    className={`absolute inset-0 flex flex-col justify-between p-4 border rounded-lg ${flippedColor} shadow-sm transition-all duration-500 ${
+                      flippedCards[index] ? "opacity-100" : "opacity-0 rotate-y-180"
+                    }`}
+                  >
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">Answer:</p>
+                      <p className="text-gray-800">{card.back}</p>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs mt-2 text-blue-600 hover:text-blue-700 hover:bg-blue-100"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFlip(index);
+                        }}
+                      >
+                        Show Question
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <p className="text-muted-foreground text-center py-6">

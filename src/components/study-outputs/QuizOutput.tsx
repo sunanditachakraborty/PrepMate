@@ -22,7 +22,7 @@ export const QuizOutput = ({ quizQuestions, isLoading }: QuizOutputProps) => {
         <div className="bg-red-50 p-1.5 rounded-md mr-2">
           <FlaskConical className="h-5 w-5 text-red-700" />
         </div>
-        <CardTitle className="text-lg">Quiz Questions</CardTitle>
+        <CardTitle className="text-lg">Knowledge Check</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
@@ -80,7 +80,7 @@ export const QuizOutput = ({ quizQuestions, isLoading }: QuizOutputProps) => {
           </div>
         ) : (
           <p className="text-muted-foreground text-center py-6">
-            Enter your study content and select generate to create quiz questions.
+            Enter your study content and select generate to create content-specific quiz questions.
           </p>
         )}
       </CardContent>

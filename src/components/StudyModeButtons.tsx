@@ -21,36 +21,40 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
       id: "summary" as StudyMode,
       label: "Summary",
       icon: ListChecks,
-      bgColor: "bg-green-50",
-      textColor: "text-green-700",
+      bgColor: "bg-white",
+      textColor: "text-gray-600",
       activeColor: "bg-green-100",
+      activeTextColor: "text-green-700",
       hoverColor: "hover:bg-green-50"
     },
     {
       id: "questions" as StudyMode,
       label: "Questions",
       icon: HelpCircle,
-      bgColor: "bg-amber-50",
-      textColor: "text-amber-700",
+      bgColor: "bg-white",
+      textColor: "text-gray-600",
       activeColor: "bg-amber-100",
+      activeTextColor: "text-amber-700",
       hoverColor: "hover:bg-amber-50"
     },
     {
       id: "quiz" as StudyMode,
       label: "Quiz",
       icon: FlaskConical,
-      bgColor: "bg-red-50",
-      textColor: "text-red-700",
+      bgColor: "bg-white",
+      textColor: "text-gray-600",
       activeColor: "bg-red-100",
+      activeTextColor: "text-red-700",
       hoverColor: "hover:bg-red-50"
     },
     {
       id: "flashcards" as StudyMode,
       label: "Flashcards",
       icon: Layers,
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-700",
+      bgColor: "bg-white",
+      textColor: "text-gray-600",
       activeColor: "bg-blue-100",
+      activeTextColor: "text-blue-700",
       hoverColor: "hover:bg-blue-50"
     }
   ];
@@ -64,10 +68,11 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
             key={mode.id}
             onClick={() => setActiveMode(mode.id)}
             className={cn(
-              "py-4 px-6 rounded-2xl flex items-center gap-2 border-none transition-all duration-300 shadow-sm",
+              "py-4 px-6 rounded-2xl flex items-center gap-2 border shadow-sm transition-all duration-300",
               isActive ? mode.activeColor : mode.bgColor,
-              isActive ? mode.textColor : "text-gray-600",
-              "hover:scale-105 active:scale-95"
+              isActive ? mode.activeTextColor : "text-gray-600",
+              "hover:scale-105 active:scale-95",
+              !isActive && mode.hoverColor
             )}
             variant="ghost"
           >
