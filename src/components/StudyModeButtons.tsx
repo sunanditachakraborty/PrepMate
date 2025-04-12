@@ -23,7 +23,8 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
       icon: ListChecks,
       bgColor: "bg-green-50",
       textColor: "text-green-700",
-      hoverColor: "hover:bg-green-100"
+      activeColor: "bg-green-100",
+      hoverColor: "hover:bg-green-50"
     },
     {
       id: "questions" as StudyMode,
@@ -31,7 +32,8 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
       icon: HelpCircle,
       bgColor: "bg-amber-50",
       textColor: "text-amber-700",
-      hoverColor: "hover:bg-amber-100"
+      activeColor: "bg-amber-100",
+      hoverColor: "hover:bg-amber-50"
     },
     {
       id: "quiz" as StudyMode,
@@ -39,7 +41,8 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
       icon: FlaskConical,
       bgColor: "bg-red-50",
       textColor: "text-red-700",
-      hoverColor: "hover:bg-red-100"
+      activeColor: "bg-red-100",
+      hoverColor: "hover:bg-red-50"
     },
     {
       id: "flashcards" as StudyMode,
@@ -47,7 +50,8 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
       icon: Layers,
       bgColor: "bg-blue-50",
       textColor: "text-blue-700",
-      hoverColor: "hover:bg-blue-100"
+      activeColor: "bg-blue-100",
+      hoverColor: "hover:bg-blue-50"
     }
   ];
 
@@ -60,15 +64,19 @@ export const StudyModeButtons = ({ activeMode, setActiveMode }: StudyModeButtons
             key={mode.id}
             onClick={() => setActiveMode(mode.id)}
             className={cn(
-              "study-btn py-6 px-6 flex items-center gap-2 border",
-              mode.bgColor,
-              mode.textColor,
-              mode.hoverColor,
-              isActive ? "ring-2 ring-primary shadow-md" : "ring-0"
+              "study-btn py-6 px-6 flex items-center gap-2 border-none transition-all duration-300",
+              isActive ? [mode.activeColor, "ring-2 ring-primary shadow-md"] : [mode.bgColor, mode.hoverColor],
+              isActive ? mode.textColor : "text-muted-foreground",
+              "hover:scale-105 active:scale-95"
             )}
             variant="ghost"
           >
-            <mode.icon className="h-5 w-5" />
+            <mode.icon 
+              className={cn(
+                "h-5 w-5 transition-all duration-300", 
+                isActive ? "scale-110" : "scale-100"
+              )} 
+            />
             <span className="font-medium">{mode.label}</span>
           </Button>
         );
