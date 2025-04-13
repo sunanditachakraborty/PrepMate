@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,37 +24,14 @@ const formatText = (text: string) => {
   return formattedText;
 };
 
-// Get 3-5 flashcards from the flashcards array
+// Get 1 flashcard from the flashcards array
 const getDisplayFlashcards = (cards: Flashcard[]) => {
-  // If we have enough flashcards (3-5), just return them
-  if (cards.length >= 3 && cards.length <= 5) {
-    return cards;
-  }
-  
-  // If we have more than 5 flashcards, just return the first 5
-  if (cards.length > 5) {
-    return cards.slice(0, 5);
-  }
-  
-  // If we have fewer than 3 flashcards but at least 1
+  // If we have at least 1 flashcard, return the first flashcard
   if (cards.length > 0) {
-    // Create a new array with our existing flashcards
-    const result: Flashcard[] = [...cards];
-    
-    // Generate additional unique flashcards until we have at least 3
-    for (let i = result.length; i < 3; i++) {
-      const baseCard = cards[i % cards.length];
-      // Create a variant of the flashcard to avoid exact duplication
-      result.push({
-        front: `${baseCard.front} (variation ${Math.floor(i / cards.length) + 1})`,
-        back: baseCard.back
-      });
-    }
-    
-    return result;
+    return [cards[0]];
   }
   
-  // If there are no flashcards at all, return empty array
+  // If no flashcards, return empty array
   return [];
 };
 
@@ -96,7 +72,7 @@ export const FlashcardsOutput = ({ flashcards, isLoading }: FlashcardsOutputProp
     setFlippedCards(newFlipped);
   };
 
-  // Make sure we have 3-5 flashcards to display
+  // Make sure we have 1 flashcard to display
   const displayFlashcards = getDisplayFlashcards(flashcards);
 
   return (

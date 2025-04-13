@@ -1,4 +1,3 @@
-
 import { FlaskConical } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -15,52 +14,22 @@ interface QuizOutputProps {
   isLoading: boolean;
 }
 
-// Function to process text formatting for bold and headings
 const formatText = (text: string) => {
-  // Replace bold text (**text**) with styled spans
   let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
-  
-  // Replace heading text (# text) with styled headings
   formattedText = formattedText.replace(/^# (.*?)$/gm, '<div class="heading">$1</div>');
-  
   return formattedText;
 };
 
-// Get 5 questions from the quiz questions array
 const getDisplayQuestions = (questions: QuizQuestion[]) => {
-  // If we have 5 or more questions, just return the first 5
-  if (questions.length >= 5) {
-    return questions.slice(0, 5);
-  }
-  
-  // If we have fewer than 5 questions but at least 1
   if (questions.length > 0) {
-    // Create a new array with our existing questions
-    const result: QuizQuestion[] = [...questions];
-    
-    // Generate additional unique questions until we have 5
-    for (let i = result.length; i < 5; i++) {
-      const baseQuestion = questions[i % questions.length];
-      // Create a variant of the question to avoid exact duplication
-      result.push({
-        question: `${baseQuestion.question} (variation ${Math.floor(i / questions.length) + 1})`,
-        options: [...baseQuestion.options], // Copy options
-        correctAnswerIndex: baseQuestion.correctAnswerIndex
-      });
-    }
-    
-    return result;
+    return [questions[0]];
   }
-  
-  // If there are no questions at all, return empty array
   return [];
 };
 
 export const QuizOutput = ({ quizQuestions, isLoading }: QuizOutputProps) => {
-  // Get exactly 5 questions to display
   const displayQuestions = getDisplayQuestions(quizQuestions);
-  
-  // Color variants for quiz cards
+
   const cardColors = [
     "bg-red-50 border-red-100",
     "bg-amber-50 border-amber-100",
