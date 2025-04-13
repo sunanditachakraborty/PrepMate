@@ -28,21 +28,32 @@ const formatText = (text: string) => {
 
 // Get 5 questions from the quiz questions array
 const getDisplayQuestions = (questions: QuizQuestion[]) => {
-  // Make sure we always have 5 questions
-  if (questions.length < 5) {
-    // If we have fewer than 5 questions, duplicate existing ones to reach 5
-    const duplicatedQuestions = [...questions];
-    while (duplicatedQuestions.length < 5) {
-      const questionToDuplicate = questions[duplicatedQuestions.length % questions.length];
-      duplicatedQuestions.push({
-        ...questionToDuplicate,
-        question: `${questionToDuplicate.question} (continued)`, // Slightly modify duplicated question
-      });
-    }
-    return duplicatedQuestions;
+  // If we have 5 or more questions, just return the first 5
+  if (questions.length >= 5) {
+    return questions.slice(0, 5);
   }
   
-  return questions.slice(0, 5); // Return exactly 5 questions
+  // If we have fewer than 5 questions but at least 1
+  if (questions.length > 0) {
+    // Create a new array with our existing questions
+    const result: QuizQuestion[] = [...questions];
+    
+    // Generate additional unique questions until we have 5
+    for (let i = result.length; i < 5; i++) {
+      const baseQuestion = questions[i % questions.length];
+      // Create a variant of the question to avoid exact duplication
+      result.push({
+        question: `${baseQuestion.question} (variation ${Math.floor(i / questions.length) + 1})`,
+        options: [...baseQuestion.options], // Copy options
+        correctAnswerIndex: baseQuestion.correctAnswerIndex
+      });
+    }
+    
+    return result;
+  }
+  
+  // If there are no questions at all, return empty array
+  return [];
 };
 
 export const QuizOutput = ({ quizQuestions, isLoading }: QuizOutputProps) => {
