@@ -5,11 +5,11 @@ export const PrepHeader = () => {
   return (
     <header className="flex flex-col items-center justify-center animate-fade-in py-6">
       <div className="flex items-center gap-3">
-        <div className="bg-amber-100 p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-90">
+        <div className="bg-amber-100 p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 animate-float">
           <GraduationCap className="h-7 w-7 text-gray-800 transition-all duration-300" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-700">Prep Mate</h1>
-        <div className="bg-blue-100 p-3 rounded-full ml-1 transition-all duration-300 hover:scale-110 active:scale-90">
+        <div className="bg-blue-100 p-3 rounded-full ml-1 transition-all duration-300 hover:scale-110 active:scale-90 animate-float">
           <BookOpen className="h-6 w-6 text-blue-500 transition-all duration-300" />
         </div>
       </div>
