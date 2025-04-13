@@ -7,11 +7,22 @@ interface SummaryOutputProps {
   isLoading: boolean;
 }
 
+// Function to process text formatting for bold and headings
+const formatText = (text: string) => {
+  // Replace bold text (**text**) with styled spans
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
+  
+  // Replace heading text (# text) with styled headings
+  formattedText = formattedText.replace(/^# (.*?)$/gm, '<div class="heading">$1</div>');
+  
+  return formattedText;
+};
+
 export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) => {
   return (
     <Card className="bg-white shadow-sm border border-gray-100 rounded-xl w-full animate-fade-in">
       <CardHeader className="pb-2 flex flex-row items-center space-y-0">
-        <div className="bg-green-50 p-1.5 rounded-full mr-2">
+        <div className="bg-green-50 p-1.5 rounded-full mr-2 animate-bounce">
           <ListChecks className="h-5 w-5 text-green-700" />
         </div>
         <CardTitle className="text-lg text-gray-700">Content Summary</CardTitle>
@@ -41,7 +52,10 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <span className="text-green-500 font-bold">•</span>
-                <span className="text-gray-700">{point}</span>
+                <span 
+                  className="text-gray-700" 
+                  dangerouslySetInnerHTML={{ __html: formatText(point) }}
+                />
               </div>
             ))}
           </div>

@@ -17,7 +17,6 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   
-  // Study materials state
   const [summaryPoints, setSummaryPoints] = useState<string[]>([]);
   const [questions, setQuestions] = useState<string[]>([]);
   const [quizQuestions, setQuizQuestions] = useState<Array<{
@@ -42,10 +41,8 @@ const Index = () => {
     try {
       toast.info("Connecting to Lyzr API to generate study materials...");
 
-      // Process the study content using the Lyzr API
       const processedContent = await processStudyContent(studyContent);
       
-      // Update the state with the processed content
       setSummaryPoints(processedContent.summaryPoints);
       setQuestions(processedContent.questions);
       setQuizQuestions(processedContent.quizQuestions);
@@ -61,9 +58,7 @@ const Index = () => {
     }
   };
 
-  // Render the active output component based on mode
   const renderActiveOutput = () => {
-    // Display API error if one occurred
     if (apiError && !isLoading) {
       return (
         <div className="p-6 bg-red-50 border border-red-200 rounded-xl animate-fade-in">
@@ -89,7 +84,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f5ff]">
+    <div className="min-h-screen bg-[#f6f2ff]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <PrepHeader />
         
