@@ -25,6 +25,26 @@ const formatText = (text: string) => {
   return formattedText;
 };
 
+// Get 3-5 flashcards from the flashcards array
+const getDisplayFlashcards = (cards: Flashcard[]) => {
+  // Make sure we have at least 3 flashcards
+  if (cards.length < 3) {
+    // If we have fewer than 3 cards, duplicate existing ones to reach 3
+    const duplicatedCards = [...cards];
+    while (duplicatedCards.length < 3) {
+      const cardToDuplicate = cards[duplicatedCards.length % cards.length];
+      duplicatedCards.push({
+        front: `${cardToDuplicate.front} (continued)`,
+        back: cardToDuplicate.back
+      });
+    }
+    return duplicatedCards;
+  }
+  
+  // Return 3-5 cards (all if ≤5, or just 5 if more)
+  return cards.slice(0, Math.min(5, cards.length));
+};
+
 // Array of pastel background colors for cards
 const cardColors = [
   "bg-blue-100",
@@ -62,8 +82,8 @@ export const FlashcardsOutput = ({ flashcards, isLoading }: FlashcardsOutputProp
     setFlippedCards(newFlipped);
   };
 
-  // Use a subset of flashcards (3-5) to maintain quality
-  const displayFlashcards = flashcards.slice(0, Math.min(5, flashcards.length));
+  // Make sure we have 3-5 flashcards to display
+  const displayFlashcards = getDisplayFlashcards(flashcards);
 
   return (
     <Card className="prep-card w-full animate-fade-in">
@@ -76,7 +96,7 @@ export const FlashcardsOutput = ({ flashcards, isLoading }: FlashcardsOutputProp
       <CardContent>
         {isLoading ? (
           <div className="grid grid-cols-1 gap-4">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="h-32 border rounded-lg bg-muted animate-pulse-light" />
             ))}
           </div>

@@ -30,7 +30,7 @@ export const SummaryOutput = ({ summaryPoints, isLoading }: SummaryOutputProps) 
       <CardContent>
         {isLoading ? (
           <div className="space-y-2">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3, 4, 5].map((i) => (
               <div 
                 key={i} 
                 className="h-6 bg-gray-100 rounded animate-pulse-light"

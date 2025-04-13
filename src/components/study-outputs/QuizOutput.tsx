@@ -28,11 +28,25 @@ const formatText = (text: string) => {
 
 // Get 5 questions from the quiz questions array
 const getDisplayQuestions = (questions: QuizQuestion[]) => {
-  return questions.slice(0, Math.min(5, questions.length));
+  // Make sure we always have 5 questions
+  if (questions.length < 5) {
+    // If we have fewer than 5 questions, duplicate existing ones to reach 5
+    const duplicatedQuestions = [...questions];
+    while (duplicatedQuestions.length < 5) {
+      const questionToDuplicate = questions[duplicatedQuestions.length % questions.length];
+      duplicatedQuestions.push({
+        ...questionToDuplicate,
+        question: `${questionToDuplicate.question} (continued)`, // Slightly modify duplicated question
+      });
+    }
+    return duplicatedQuestions;
+  }
+  
+  return questions.slice(0, 5); // Return exactly 5 questions
 };
 
 export const QuizOutput = ({ quizQuestions, isLoading }: QuizOutputProps) => {
-  // Get up to 5 questions to display
+  // Get exactly 5 questions to display
   const displayQuestions = getDisplayQuestions(quizQuestions);
   
   // Color variants for quiz cards
